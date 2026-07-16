@@ -6,6 +6,7 @@
 [![PyTorch 2.1+](https://img.shields.io/badge/PyTorch-2.1+-ee4c2c.svg)](https://pytorch.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-000000.svg)](https://black.readthedocs.io)
+[![Kaggle Notebook](https://img.shields.io/badge/Kaggle-Notebook-20BEFF?logo=kaggle)](https://www.kaggle.com/code/adnanhassnain/medical-foundation-models)
 
 **Investigating whether LoRA-adapted DINOv2 can match or surpass EfficientNet-B3  
 on skin lesion classification with a fraction of the trainable parameters.**
@@ -21,6 +22,7 @@ on skin lesion classification with a fraction of the trainable parameters.**
 - [Dataset](#-dataset)
 - [Model Architectures](#-model-architectures)
 - [Project Structure](#-project-structure)
+- [Kaggle Notebook](#-kaggle-notebook)
 - [Installation](#-installation)
 - [Quick Start](#-quick-start)
 - [Training](#-training)
@@ -175,6 +177,20 @@ medical-foundation-models/
 ├── compare_models.py              # Side-by-side model comparison
 └── requirements.txt
 ```
+
+---
+
+## 🖥️ Kaggle Notebook
+
+You can run the full training pipeline directly on Kaggle without any local setup:
+
+👉 **[Open the Kaggle Notebook](https://www.kaggle.com/code/adnanhassnain/medical-foundation-models)**
+
+The notebook covers:
+- Installing dependencies in the Kaggle environment
+- Connecting directly to the HAM10000 dataset
+- Training DINOv2 + LoRA end-to-end on a free GPU
+- Viewing final evaluation metrics
 
 ---
 
@@ -363,16 +379,16 @@ heatmap = rollout(image_tensor, patch_size=14)
 
 ## 📊 Results
 
-> Results below are indicative targets. Run training to obtain your actual results.
+> ✅ Results below are **actual verified results** from training on Kaggle (GPU T4). See the live notebook: [Kaggle — medical-foundation-models](https://www.kaggle.com/code/adnanhassnain/medical-foundation-models)
 
 | Metric | EfficientNet-B3 | DINOv2 + LoRA |
 |:-------|:--------------:|:-------------:|
-| Accuracy | ~0.84 | ~0.86 |
-| F1 (macro) | ~0.72 | ~0.75 |
-| ROC-AUC (macro) | ~0.95 | ~0.96 |
-| **Trainable params** | **~12.2 M** | **~1.5 M** |
-| Trainable % | 100% | ~1.7% |
-| Inference latency | ~3.2 ms | ~4.8 ms |
+| Accuracy | ~0.84 | **0.7713** |
+| F1 (macro) | ~0.72 | **0.7158** |
+| ROC-AUC (macro) | ~0.95 | **0.9560** |
+| **Trainable params** | **~12.2 M** | **~0.59 M** |
+| Trainable % | 100% | **0.68%** |
+| Training time (30 epochs) | — | **~39 min (Kaggle T4)** |
 
 ---
 
