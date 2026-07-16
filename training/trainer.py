@@ -182,12 +182,14 @@ class Trainer:
 
     def _train_epoch(self, epoch: int) -> Tuple[float, float]:
         """One training epoch. Returns (avg_loss, avg_accuracy)."""
+        from tqdm import tqdm
         self.model.train()
         total_loss = 0.0
         correct = 0
         total = 0
 
-        for batch_idx, (images, labels) in enumerate(self.train_loader):
+        pbar = tqdm(self.train_loader, desc=f"Epoch {epoch}/{self.num_epochs} [Train]", leave=False)
+        for batch_idx, (images, labels) in enumerate(pbar):
             images = images.to(self.device, non_blocking=True)
             labels = labels.to(self.device, non_blocking=True)
 
@@ -224,12 +226,14 @@ class Trainer:
     @torch.no_grad()
     def _val_epoch(self, epoch: int) -> Tuple[float, float]:
         """One validation epoch. Returns (avg_loss, avg_accuracy)."""
+        from tqdm import tqdm
         self.model.eval()
         total_loss = 0.0
         correct = 0
         total = 0
 
-        for images, labels in self.val_loader:
+        pbar = tqdm(self.val_loader, desc=f"Epoch {epoch}/{self.num_epochs} [Val]", leave=False)
+        for images, labels in pbar:
             images = images.to(self.device, non_blocking=True)
             labels = labels.to(self.device, non_blocking=True)
 
