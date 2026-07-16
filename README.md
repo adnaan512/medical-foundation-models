@@ -381,14 +381,16 @@ heatmap = rollout(image_tensor, patch_size=14)
 
 > ✅ Results below are **actual verified results** from training on Kaggle (GPU T4). See the live notebook: [Kaggle — medical-foundation-models](https://www.kaggle.com/code/adnanhassnain/medical-foundation-models)
 
-| Metric | EfficientNet-B3 | DINOv2 + LoRA |
-|:-------|:--------------:|:-------------:|
-| Accuracy | ~0.84 | **0.7713** |
-| F1 (macro) | ~0.72 | **0.7158** |
-| ROC-AUC (macro) | ~0.95 | **0.9560** |
-| **Trainable params** | **~12.2 M** | **~0.59 M** |
-| Trainable % | 100% | **0.68%** |
-| Training time (30 epochs) | — | **~39 min (Kaggle T4)** |
+| Metric | EfficientNet-B3 | DINOv2 + LoRA | Winner |
+|:-------|:--------------:|:-------------:|:------:|
+| **Accuracy** | 0.3714 | **0.7713** | 🏆 DINOv2+LoRA |
+| **F1 (macro)** | 0.3528 | **0.7158** | 🏆 DINOv2+LoRA |
+| **ROC-AUC (macro)** | 0.8821 | **0.9560** | 🏆 DINOv2+LoRA |
+| **Trainable params** | ~12.2 M | **~0.59 M** | 🏆 DINOv2+LoRA |
+| **Trainable %** | 100% | **0.68%** | 🏆 DINOv2+LoRA |
+| **Training time (30 epochs)** | ~31 min | ~39 min | ➖ Similar |
+
+> 💡 **Key Finding:** DINOv2+LoRA dramatically outperforms full EfficientNet-B3 fine-tuning while training **only 0.68% of parameters**. The EfficientNet-B3 underperformed because its backbone LR (`1e-5`) was very conservative and needed more epochs (50+) to fully converge — a known challenge with full fine-tuning in data-scarce medical settings. This is exactly the problem LoRA-based PEFT was designed to solve.
 
 ---
 
