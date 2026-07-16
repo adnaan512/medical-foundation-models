@@ -97,7 +97,7 @@ class Evaluator:
             with autocast(enabled=self.mixed_precision):
                 logits = self.model(images)
 
-            probs = torch.softmax(logits, dim=1)
+            probs = torch.softmax(logits.float(), dim=1)
             preds = logits.argmax(dim=1)
 
             all_probs.append(probs.cpu().numpy())
