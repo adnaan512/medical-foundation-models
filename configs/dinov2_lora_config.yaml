@@ -1,0 +1,49 @@
+
+# =============================================================================
+# DINOv2 + LoRA Configuration
+# =============================================================================
+defaults:
+  - base_config
+
+model:
+  name: "dinov2_vitb14"
+  pretrained: true
+  freeze_backbone: true     # Backbone frozen — only LoRA + head trained
+  dropout_rate: 0.1
+  # DINOv2 ViT-B/14 feature dimension
+  feature_dim: 768
+
+lora:
+  r: 16                     # LoRA rank
+  lora_alpha: 32            # LoRA scaling factor (alpha/r = 2)
+  lora_dropout: 0.1
+  target_modules:           # Attention projection layers to adapt
+    - "query"
+    - "value"
+  bias: "none"              # "none" | "all" | "lora_only"
+  task_type: "FEATURE_EXTRACTION"
+
+training:
+  batch_size: 32
+  num_epochs: 50
+  early_stopping_patience: 10
+  mixed_precision: true
+  gradient_clip_norm: 1.0
+  label_smoothing: 0.1
+
+optimizer:
+  name: "adamw"
+  lr: 5.0e-4                # Higher LR acceptable — fewer params
+  weight_decay: 1.0e-4
+  backbone_lr_multiplier: 1.0   # Backbone frozen; multiplier irrelevant
+
+scheduler:
+  name: "cosine_with_warmup"
+  warmup_epochs: 3
+  min_lr: 1.0e-6
+  T_max: 50
+
+logging:
+  experiment_name: "dinov2_lora_ham10000"
+  checkpoint_dir: "checkpoints/dinov2_lora"
+  figures_dir: "figures/dinov2_lora"

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Data (too large for git)
+data/HAM10000/images/
+data/HAM10000/*.jpg
+
+# Model checkpoints (large binaries)
+checkpoints/
+*.pth
+*.pt
+
+# Outputs and logs
+outputs/tensorboard/
+outputs/logs/
+*.log
+
+# Figures (regenerate from code)
+figures/*.png
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# macOS
+.DS_Store
+
+# Kaggle
+kaggle.json

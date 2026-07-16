@@ -1,0 +1,39 @@
+
+# =============================================================================
+# EfficientNet-B3 Configuration
+# =============================================================================
+defaults:
+  - base_config
+
+model:
+  name: "efficientnet_b3"
+  pretrained: true
+  freeze_backbone: false    # Fine-tune full model (classification head focus)
+  dropout_rate: 0.3
+  # EfficientNet-B3 feature dimension
+  feature_dim: 1536
+
+training:
+  batch_size: 32
+  num_epochs: 50
+  early_stopping_patience: 10
+  mixed_precision: true
+  gradient_clip_norm: 1.0
+  label_smoothing: 0.1
+
+optimizer:
+  name: "adamw"
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  backbone_lr_multiplier: 0.1   # Lower LR for pretrained backbone layers
+
+scheduler:
+  name: "cosine_with_warmup"
+  warmup_epochs: 3
+  min_lr: 1.0e-6
+  T_max: 50
+
+logging:
+  experiment_name: "efficientnet_b3_ham10000"
+  checkpoint_dir: "checkpoints/efficientnet"
+  figures_dir: "figures/efficientnet"
