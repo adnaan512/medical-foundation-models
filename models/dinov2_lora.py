@@ -46,7 +46,7 @@ class DINOv2LoRAClassifier(nn.Module):
         self.feature_dim = 768
 
         logger.info("Loading DINOv2 backbone: %s", DINOV2_MODEL_ID)
-        backbone = AutoModel.from_pretrained(DINOV2_MODEL_ID, add_pooling_layer=False)
+        backbone = AutoModel.from_pretrained(DINOV2_MODEL_ID)
 
         lora_config = LoraConfig(
             r=lora_r,
