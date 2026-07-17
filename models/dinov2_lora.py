@@ -77,7 +77,9 @@ class DINOv2LoRAClassifier(nn.Module):
         return outputs.last_hidden_state[:, 0, :]
 
     def get_attention_maps(self, x: torch.Tensor) -> List[torch.Tensor]:
-        outputs = self.backbone(pixel_values=x, output_attentions=True)
+        # Access base model directly — PEFT wrapper does not forward output_attentions
+        base = self.backbone.base_model.model
+        outputs = base(pixel_values=x, output_attentions=True)
         return list(outputs.attentions)
 
     def get_parameter_groups(self, base_lr: float = 5e-4, weight_decay: float = 1e-4, **kwargs) -> List[Dict]:
