@@ -364,6 +364,8 @@ gradcam = GradCAM(model, target_layer=model.get_gradcam_target_layer())
 heatmap = gradcam(image_tensor, class_idx=None)   # None = predicted class
 ```
 
+![EfficientNet-B3 Grad-CAM](figures/efficientnet_b3_ham10000/gradcam_samples.png)
+
 ### Attention Rollout (DINOv2)
 
 Propagates attention through all 12 transformer layers via matrix multiplication,
@@ -375,6 +377,8 @@ rollout = AttentionRollout(model, discard_ratio=0.9, head_fusion="mean")
 heatmap = rollout(image_tensor, patch_size=14)
 ```
 
+![DINOv2 Attention Rollout](figures/dinov2_lora_ham10000/attention_rollout_samples.png)
+
 ---
 
 ## 📊 Results
@@ -383,14 +387,30 @@ heatmap = rollout(image_tensor, patch_size=14)
 
 | Metric | EfficientNet-B3 | DINOv2 + LoRA | Winner |
 |:-------|:--------------:|:-------------:|:------:|
-| **Accuracy** | 0.3714 | **0.7713** | 🏆 DINOv2+LoRA |
-| **F1 (macro)** | 0.3528 | **0.7158** | 🏆 DINOv2+LoRA |
-| **ROC-AUC (macro)** | 0.8821 | **0.9560** | 🏆 DINOv2+LoRA |
-| **Trainable params** | ~12.2 M | **~0.59 M** | 🏆 DINOv2+LoRA |
-| **Trainable %** | 100% | **0.68%** | 🏆 DINOv2+LoRA |
-| **Training time (30 epochs)** | ~31 min | ~39 min | ➖ Similar |
+| **Accuracy** | 0.3714 | **0.7535** | 🏆 DINOv2+LoRA |
+| **F1 (macro)** | 0.3528 | **0.6938** | 🏆 DINOv2+LoRA |
+| **ROC-AUC (macro)** | 0.8821 | **0.9526** | 🏆 DINOv2+LoRA |
+| **Trainable params** | ~10.71 M | **~0.60 M** | 🏆 DINOv2+LoRA |
+| **Total params** | ~10.71 M | ~87.18 M | ➖ |
+| **Latency (ms/sample)** | **~4.9 ms** | ~21.3 ms | 🏆 EfficientNet-B3 |
+| **GPU Memory (MB)** | **~637 MB** | ~733 MB | 🏆 EfficientNet-B3 |
 
-> 💡 **Key Finding:** DINOv2+LoRA dramatically outperforms full EfficientNet-B3 fine-tuning while training **only 0.68% of parameters**. The EfficientNet-B3 underperformed because its backbone LR (`1e-5`) was very conservative and needed more epochs (50+) to fully converge — a known challenge with full fine-tuning in data-scarce medical settings. This is exactly the problem LoRA-based PEFT was designed to solve.
+![Efficiency Comparison](figures/efficiency_comparison.png)
+
+> 💡 **Key Finding:** DINOv2+LoRA dramatically outperforms full EfficientNet-B3 fine-tuning while training **only 0.68% of the parameters**. The pre-trained Vision Transformer features adapted incredibly well to the complex skin lesion data, whereas training a CNN from scratch or with a low learning rate struggled to capture the necessary features.
+
+### DINOv2 Model Performance Analysis
+
+Below are the detailed performance charts for the winning **DINOv2+LoRA** model:
+
+#### Confusion Matrix
+![DINOv2 Confusion Matrix](figures/dinov2_lora_ham10000/confusion_matrix_dinov2_lora_ham10000.png)
+
+#### ROC Curves
+![DINOv2 ROC Curves](figures/dinov2_lora_ham10000/roc_curves_dinov2_lora_ham10000.png)
+
+#### Precision-Recall Curves
+![DINOv2 PR Curves](figures/dinov2_lora_ham10000/pr_curves_dinov2_lora_ham10000.png)
 
 ---
 
