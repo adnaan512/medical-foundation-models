@@ -223,7 +223,7 @@ python inference.py --model dinov2_vitb14 --checkpoint checkpoints/dinov2_lora_h
 }
 ```
 
-## 🙏 20. Acknowledgements
+##  20. Acknowledgements
 
 - [HAM10000 Dataset](https://www.nature.com/articles/sdata2018161)
 - [DINOv2 (Meta AI)](https://arxiv.org/abs/2304.07193)
