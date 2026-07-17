@@ -64,9 +64,9 @@ class AttentionRollout:
 
         rollout = self._compute_rollout(attention_maps)
 
-        # rollout[0, 1:] → patch attentions from CLS token (skip CLS itself)
+        # rollout[0, 0, 1:] → patch attentions from CLS token to spatial patches
         h = w = image.shape[2] // patch_size
-        patch_attn = rollout[0, 1:].reshape(h, w).cpu().numpy()
+        patch_attn = rollout[0, 0, 1:].reshape(h, w).cpu().numpy()
 
         # Upsample to original image resolution
         patch_attn_t = torch.tensor(patch_attn).unsqueeze(0).unsqueeze(0)
