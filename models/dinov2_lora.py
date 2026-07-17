@@ -77,9 +77,12 @@ class DINOv2LoRAClassifier(nn.Module):
         return outputs.last_hidden_state[:, 0, :]
 
     def get_attention_maps(self, x: torch.Tensor) -> List[torch.Tensor]:
-        # Access base model directly — PEFT wrapper does not forward output_attentions
+        # PEFT LoRA layers intercept output_attentions kwarg — use config instead
         base = self.backbone.base_model.model
-        outputs = base(pixel_values=x, output_attentions=True)
+        original_setting = base.config.output_attentions
+        base.config.output_attentions = True
+        outputs = base(pixel_values=x)
+        base.config.output_attentions = original_setting
         return list(outputs.attentions)
 
     def get_parameter_groups(self, base_lr: float = 5e-4, weight_decay: float = 1e-4, **kwargs) -> List[Dict]:
