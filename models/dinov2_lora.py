@@ -46,7 +46,10 @@ class DINOv2LoRAClassifier(nn.Module):
         self.feature_dim = 768
 
         logger.info("Loading DINOv2 backbone: %s", DINOV2_MODEL_ID)
-        backbone = AutoModel.from_pretrained(DINOV2_MODEL_ID)
+        backbone = AutoModel.from_pretrained(
+            DINOV2_MODEL_ID,
+            attn_implementation="eager",  # Required for output_attentions to work
+        )
 
         lora_config = LoraConfig(
             r=lora_r,
@@ -77,12 +80,8 @@ class DINOv2LoRAClassifier(nn.Module):
         return outputs.last_hidden_state[:, 0, :]
 
     def get_attention_maps(self, x: torch.Tensor) -> List[torch.Tensor]:
-        # PEFT LoRA layers intercept output_attentions kwarg — use config instead
-        base = self.backbone.base_model.model
-        original_setting = base.config.output_attentions
-        base.config.output_attentions = True
-        outputs = base(pixel_values=x)
-        base.config.output_attentions = original_setting
+        # Eager attention is set at load time so output_attentions works correctly
+        outputs = self.backbone(pixel_values=x, output_attentions=True)
         return list(outputs.attentions)
 
     def get_parameter_groups(self, base_lr: float = 5e-4, weight_decay: float = 1e-4, **kwargs) -> List[Dict]:
