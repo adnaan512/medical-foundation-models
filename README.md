@@ -399,18 +399,16 @@ heatmap = rollout(image_tensor, patch_size=14)
 
 > 💡 **Key Finding:** DINOv2+LoRA dramatically outperforms full EfficientNet-B3 fine-tuning while training **only 0.68% of the parameters**. The pre-trained Vision Transformer features adapted incredibly well to the complex skin lesion data, whereas training a CNN from scratch or with a low learning rate struggled to capture the necessary features.
 
-### DINOv2 Model Performance Analysis
+### Model Comparison Charts
 
-Below are the detailed performance charts for the winning **DINOv2+LoRA** model:
-
-#### Confusion Matrix
-![DINOv2 Confusion Matrix](figures/dinov2_lora_ham10000/confusion_matrix_dinov2_lora_ham10000.png)
-
-#### ROC Curves
-![DINOv2 ROC Curves](figures/dinov2_lora_ham10000/roc_curves_dinov2_lora_ham10000.png)
-
-#### Precision-Recall Curves
-![DINOv2 PR Curves](figures/dinov2_lora_ham10000/pr_curves_dinov2_lora_ham10000.png)
+| EfficientNet-B3 (Baseline) | DINOv2 + LoRA (Winner) |
+|:---:|:---:|
+| **Confusion Matrix** | **Confusion Matrix** |
+| ![EfficientNet CM](figures/efficientnet_b3_ham10000/confusion_matrix_efficientnet_b3_ham10000.png) | ![DINOv2 CM](figures/dinov2_lora_ham10000/confusion_matrix_dinov2_lora_ham10000.png) |
+| **ROC Curves** | **ROC Curves** |
+| ![EfficientNet ROC](figures/efficientnet_b3_ham10000/roc_curves_efficientnet_b3_ham10000.png) | ![DINOv2 ROC](figures/dinov2_lora_ham10000/roc_curves_dinov2_lora_ham10000.png) |
+| **Precision-Recall Curves** | **Precision-Recall Curves** |
+| ![EfficientNet PR](figures/efficientnet_b3_ham10000/pr_curves_efficientnet_b3_ham10000.png) | ![DINOv2 PR](figures/dinov2_lora_ham10000/pr_curves_dinov2_lora_ham10000.png) |
 
 ---
 
