@@ -1,0 +1,40 @@
+
+# =============================================================================
+# EfficientNet-B3 Configuration  (alias: efficientnet_b3.yaml)
+# Mirrors efficientnet_config.yaml — used when callers reference the model
+# by its canonical identifier "efficientnet_b3" rather than the old filename.
+# =============================================================================
+defaults:
+  - base_config
+
+model:
+  name: "efficientnet_b3"
+  pretrained: true
+  freeze_backbone: false        # Full fine-tuning (discriminative LR)
+  dropout_rate: 0.3
+  feature_dim: 1536             # EfficientNet-B3 pooled feature dimension
+
+training:
+  batch_size: 32
+  num_epochs: 50
+  early_stopping_patience: 10
+  mixed_precision: true
+  gradient_clip_norm: 1.0
+  label_smoothing: 0.1
+
+optimizer:
+  name: "adamw"
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  backbone_lr_multiplier: 0.1   # Backbone trained at 10× lower LR
+
+scheduler:
+  name: "cosine_with_warmup"
+  warmup_epochs: 3
+  min_lr: 1.0e-6
+  T_max: 50
+
+logging:
+  experiment_name: "efficientnet_b3_ham10000"
+  checkpoint_dir: "checkpoints/efficientnet_b3"
+  figures_dir: "figures/efficientnet_b3_ham10000"

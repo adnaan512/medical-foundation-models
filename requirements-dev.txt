@@ -1,0 +1,38 @@
+# ============================================================
+# medical-foundation-models — Development Requirements
+# Install AFTER requirements.txt:
+#   pip install -r requirements.txt
+#   pip install -r requirements-dev.txt
+# ============================================================
+
+# ---- Testing ----
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-xdist>=3.3.0          # parallel test execution
+pytest-timeout>=2.1.0
+
+# ---- Code Quality ----
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.1.0
+flake8-bugbear>=23.0.0       # extra Flake8 checks
+mypy>=1.5.0
+pre-commit>=3.4.0
+
+# ---- Type Stubs ----
+types-PyYAML>=6.0.12
+types-tqdm>=4.66.0
+
+# ---- Documentation ----
+mkdocs>=1.5.0
+mkdocs-material>=9.2.0
+mkdocstrings[python]>=0.23.0
+
+# ---- Profiling & Debugging ----
+memory-profiler>=0.61.0
+line-profiler>=4.1.0
+ipdb>=0.13.13
+
+# ---- Notebook QA ----
+nbmake>=1.4.3                 # run notebooks as pytest tests
+nbstripout>=0.6.1             # strip notebook output before commits
