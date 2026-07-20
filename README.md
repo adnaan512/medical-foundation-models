@@ -6,6 +6,7 @@
 [![PyTorch 2.1+](https://img.shields.io/badge/PyTorch-2.1+-ee4c2c.svg)](https://pytorch.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-000000.svg)](https://black.readthedocs.io)
+[![CI](https://github.com/adnaan512/medical-foundation-models/actions/workflows/ci.yml/badge.svg)](https://github.com/adnaan512/medical-foundation-models/actions/workflows/ci.yml)
 [![Kaggle Notebook](https://img.shields.io/badge/Kaggle-Notebook-20BEFF?logo=kaggle)](https://www.kaggle.com/code/adnanhassnain/medical-foundation-models)
 
 </div>
@@ -152,16 +153,30 @@ To ensure our models learn clinically relevant features rather than statistical 
 
 ```text
 medical-foundation-models/
+├── .github/
+│   └── workflows/
+│       └── ci.yml              ← GitHub Actions CI pipeline
 ├── configs/
+│   ├── base_config.yaml
+│   ├── efficientnet_config.yaml
+│   └── dinov2_lora_config.yaml
 ├── datasets/
 ├── models/
 ├── training/
 ├── evaluation/
 ├── explainability/
 ├── utils/
+├── examples/
+│   └── run_demo.py             ← Quick env verification (no dataset needed)
+├── tests/
+│   ├── test_models.py          ← Model architecture unit tests
+│   ├── test_metrics.py         ← Evaluation metrics unit tests
+│   ├── test_losses.py          ← Loss function unit tests
+│   └── test_config.py          ← Config loading/merging unit tests
 ├── figures/
 ├── outputs/
 ├── checkpoints/
+├── CITATION.cff                ← Academic citation metadata
 ├── train.py
 ├── evaluate.py
 └── README.md

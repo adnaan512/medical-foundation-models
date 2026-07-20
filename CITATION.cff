@@ -1,0 +1,61 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Parameter-Efficient Fine-Tuning of Vision Foundation Models for Medical Image Analysis"
+abstract: >
+  A comprehensive, reproducible analysis of Low-Rank Adaptation (LoRA) applied to
+  DINOv2 for skin lesion classification on the HAM10000 dataset. Demonstrates that
+  LoRA-adapted vision foundation models dramatically outperform traditional CNN-based
+  transfer learning while requiring significantly fewer trainable parameters.
+authors:
+  - family-names: "Hassnain"
+    given-names: "Adnan"
+    alias: "adnaan512"
+    orcid: ""
+keywords:
+  - medical image analysis
+  - parameter-efficient fine-tuning
+  - LoRA
+  - DINOv2
+  - vision transformer
+  - skin lesion classification
+  - HAM10000
+  - transfer learning
+  - EfficientNet
+license: MIT
+version: "1.0.0"
+date-released: "2026-07-19"
+url: "https://github.com/adnaan512/medical-foundation-models"
+repository-code: "https://github.com/adnaan512/medical-foundation-models"
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Hassnain"
+      given-names: "Adnan"
+  title: "Parameter-Efficient Fine-Tuning of Vision Foundation Models for Medical Image Analysis"
+  year: 2026
+  url: "https://github.com/adnaan512/medical-foundation-models"
+  repository-code: "https://github.com/adnaan512/medical-foundation-models"
+  license: MIT
+references:
+  - type: article
+    title: "DINOv2: Learning Robust Visual Features without Supervision"
+    authors:
+      - family-names: "Oquab"
+        given-names: "Maxime"
+    year: 2023
+    url: "https://arxiv.org/abs/2304.07193"
+  - type: article
+    title: "LoRA: Low-Rank Adaptation of Large Language Models"
+    authors:
+      - family-names: "Hu"
+        given-names: "Edward J."
+    year: 2021
+    url: "https://arxiv.org/abs/2106.09685"
+  - type: article
+    title: "The HAM10000 dataset, a large collection of multi-source dermatoscopic images of common pigmented skin lesions"
+    authors:
+      - family-names: "Tschandl"
+        given-names: "Philipp"
+    year: 2018
+    doi: "10.1038/sdata.2018.161"
